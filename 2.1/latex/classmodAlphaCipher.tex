@@ -1,0 +1,110 @@
+\hypertarget{classmodAlphaCipher}{}\doxysection{Класс mod\+Alpha\+Cipher}
+\label{classmodAlphaCipher}\index{modAlphaCipher@{modAlphaCipher}}
+
+
+Шифрование методом Гронсфельда  
+
+
+
+
+{\ttfamily \#include $<$mod\+Alpha\+Cipher.\+h$>$}
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodAlphaCipher_a5e2b42f76c91038870412d0b14d31544}\label{classmodAlphaCipher_a5e2b42f76c91038870412d0b14d31544}} 
+{\bfseries mod\+Alpha\+Cipher} (const wstring \&skey)
+\item 
+wstring \mbox{\hyperlink{classmodAlphaCipher_ad540be3199da225a63a9589ca62347ce}{encrypt}} (const wstring \&open\+\_\+text)
+\begin{DoxyCompactList}\small\item\em Зашифрование \end{DoxyCompactList}\item 
+wstring \mbox{\hyperlink{classmodAlphaCipher_ae7880f197cbe27f8659455cc4c9020fb}{decrypt}} (const wstring \&cipher\+\_\+text)
+\begin{DoxyCompactList}\small\item\em Расшифрование \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Шифрование методом Гронсфельда 
+
+Ключ устанавливается в конструкторе. Для зашифровывания и расшифровывания предназначены методы encrypt и decrypt. \begin{DoxyWarning}{Предупреждения}
+Реализация только для русского языка 
+\end{DoxyWarning}
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{classmodAlphaCipher_ae7880f197cbe27f8659455cc4c9020fb}\label{classmodAlphaCipher_ae7880f197cbe27f8659455cc4c9020fb}} 
+\index{modAlphaCipher@{modAlphaCipher}!decrypt@{decrypt}}
+\index{decrypt@{decrypt}!modAlphaCipher@{modAlphaCipher}}
+\doxysubsubsection{\texorpdfstring{decrypt()}{decrypt()}}
+{\footnotesize\ttfamily wstring mod\+Alpha\+Cipher\+::decrypt (\begin{DoxyParamCaption}\item[{const wstring \&}]{cipher\+\_\+text }\end{DoxyParamCaption})}
+
+
+
+Расшифрование 
+
+Формируется вектор \char`\"{}work\char`\"{} из строки зашифрованного текста с помощью метода convert(). А также зашифрованный текст проверяется на наличие ошибки методом get\+Valid\+Alphabet\+Text(). 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{vector<int> work = convert(getValidAlphabetText(cipher\_text));}
+
+\end{DoxyCode}
+ Если при зашифровывании прибавляется значение ключа, то при расшифровывании значения ключа вычитается. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i=0; i < work.size(); i++) \{}
+\DoxyCodeLine{        work[i] = (work[i] + alphaNum.size() -\/ key[i \% key.size()]) \% alphaNum.size();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}{Аргументы}
+{\em wstring} & cipher\+\_\+text -\/ текст расшифрования \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em \mbox{\hyperlink{classcipher__error}{cipher\+\_\+error}}} & -\/ строка, пришедшея на вход, кторая оказывается пустой или в ней есть недопустимые символы \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Возвращает}
+строка расшифрованного текста типа \char`\"{}wstring\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodAlphaCipher_ad540be3199da225a63a9589ca62347ce}\label{classmodAlphaCipher_ad540be3199da225a63a9589ca62347ce}} 
+\index{modAlphaCipher@{modAlphaCipher}!encrypt@{encrypt}}
+\index{encrypt@{encrypt}!modAlphaCipher@{modAlphaCipher}}
+\doxysubsubsection{\texorpdfstring{encrypt()}{encrypt()}}
+{\footnotesize\ttfamily wstring mod\+Alpha\+Cipher\+::encrypt (\begin{DoxyParamCaption}\item[{const wstring \&}]{open\+\_\+text }\end{DoxyParamCaption})}
+
+
+
+Зашифрование 
+
+Формируется вектор \char`\"{}work\char`\"{} из строки текста с помощью метода convert(). Происходит проверка текста на наличие ошибки методом get\+Valid\+Alphabet\+Text(). 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{vector<int> work = convert(getValidAlphabetText(open\_text));}
+
+\end{DoxyCode}
+ В цикле каждому элементу вектора прибавляется элемент ключа по модулю размера алфавита. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i=0; i < work.size(); i++) \{}
+\DoxyCodeLine{   work[i] = (work[i] + key[i \% key.size()]) \% alphaNum.size();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyParams}{Аргументы}
+{\em wstring} & open\+\_\+text -\/ текст, для зашифрования \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em \mbox{\hyperlink{classcipher__error}{cipher\+\_\+error}}} & -\/ строка, пришедшея на вход, кторая оказывается пустой или в ней есть недопустимые символы \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Возвращает}
+строка зашифрованного текста типа \char`\"{}wstring\char`\"{} 
+\end{DoxyReturn}
+
+
+Объявления и описания членов классов находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{modAlphaCipher_8h}{mod\+Alpha\+Cipher.\+h}}\item 
+mod\+Alpha\+Cipher.\+cpp\end{DoxyCompactItemize}

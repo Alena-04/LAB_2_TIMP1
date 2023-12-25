@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -std=c++17
 EXEC = main
 
 # Исходные файлы
-SRCS = main.cpp Cipher.cpp
+SRCS = main.cpp modAlphaCipher.cpp
 
 # Объектные файлы
 OBJS = $(SRCS:.cpp=.o)
